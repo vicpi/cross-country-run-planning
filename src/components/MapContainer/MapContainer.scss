@@ -1,6 +1,21 @@
+@import "../../variables";
+
 .map-container {
     flex: 60;
     .leaflet-container {
         height: 100%;
+
+        .waypoint-marker {
+            width: 30px !important;
+            height: 30px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: $black;
+            color: $white;
+            font-weight: 900;
+            font-size: 16px;
+        }
     }
 }

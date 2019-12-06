@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import './MapContainer.scss';
-import { LeafletMouseEvent } from 'leaflet';
+import L, { LeafletMouseEvent } from 'leaflet';
 
 const MapContainer: React.FC = () => {
     const [waypoints, setWaypoints] = useState<any[]>([])
@@ -13,6 +13,11 @@ const MapContainer: React.FC = () => {
         ])
     }
 
+    const markerIcon = L.divIcon({
+        className: 'waypoint-marker',
+        html: '<span>1</span>'
+    });
+
     return (
         <div className="map-container">
             <Map center={[47.872332, 15.638276]} zoom={12} onClick={onClick}>
@@ -21,7 +26,7 @@ const MapContainer: React.FC = () => {
                 url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
                 {waypoints.map(point => 
-                    <Marker position={point.coords}></Marker>
+                    <Marker position={point.coords} icon={markerIcon}></Marker>
                 )}
             </Map>
         </div>

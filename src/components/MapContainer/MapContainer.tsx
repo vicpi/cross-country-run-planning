@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
-import { Map, Marker, TileLayer, Polyline } from 'react-leaflet'
-import './MapContainer.scss';
+import { Map, Marker, TileLayer, Polyline } from 'react-leaflet';
 import L, { LeafletMouseEvent } from 'leaflet';
+import { useSelector, useDispatch } from 'react-redux';
 import WaypointMarker from '../WaypointMarker/WaypointMarker';
+import { setWaypoints } from '../../actions/waypointActions';
+import { AppState } from '../../reducers/rootReducer';
+import uuid from 'uuid/v1';
+import { Waypoint } from '../../types';
+import './MapContainer.scss';
 
 const MapContainer: React.FC = () => {
-    const [waypoints, setWaypoints] = useState<any[]>([])
+    const waypoints = useSelector((state: AppState) => state.waypoints);
+    const dispatch = useDispatch();
 
     const onClick = (event: LeafletMouseEvent) => {
-        setWaypoints([
+        const newWaypoint: Waypoint = {
+            id: uuid(), 
+            order: waypoints.length + 1,
+            coords: [event.latlng.lat, event.latlng.lng]
+        };
+        
+        dispatch(setWaypoints([
             ...waypoints,
-            { coords: [event.latlng.lat, event.latlng.lng], order: 1 }
-        ])
+            newWaypoint
+        ]));
     }
 
-    const polylinePositions = waypoints.map(point => point.coords)
+    const polylinePositions = waypoints.map(waypoint => waypoint.coords)
 
     return (
         <div className="map-container">
@@ -23,8 +35,8 @@ const MapContainer: React.FC = () => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-                {waypoints.map(point => 
-                    <WaypointMarker waypoint={point} />
+                {waypoints.map(waypoint => 
+                    <WaypointMarker key={waypoint.id} waypoint={waypoint} />
                 )}
                 <Polyline positions={polylinePositions} />
             </Map>

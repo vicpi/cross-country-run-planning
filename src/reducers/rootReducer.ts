@@ -1,4 +1,4 @@
-import { SET_WAYPOINTS } from '../actions/waypointActions';
+import { SET_WAYPOINTS, REMOVE_WAYPOINT } from '../actions/waypointActions';
 import { Action, Waypoint } from '../types';
 
 export interface AppState {
@@ -15,6 +15,13 @@ function rootReducer(state = initialState, action: Action) {
             return {
                 ...state,
                 waypoints: action.payload.waypoints
+            }
+        case REMOVE_WAYPOINT:
+            return {
+                ...state,
+                waypoints: state.waypoints.filter(
+                    item => item.id !== action.payload.waypoint.id
+                )
             }
         default:
             return state

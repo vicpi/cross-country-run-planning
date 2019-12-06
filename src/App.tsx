@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.scss';
 import Sidebar from './components/Sidebar/Sidebar';
-import Map from './components/Map/Map';
+import MapContainer from './components/MapContainer/MapContainer';
 
 const App: React.FC = () => {
     return (
         <div className="app">
             <Sidebar />
-            <Map />
+            <MapContainer />
         </div>
     );
 }

@@ -14,10 +14,14 @@ const MapContainer: React.FC = () => {
     const dispatch = useDispatch();
 
     const onClick = (event: LeafletMouseEvent) => {
+        const order = waypoints.length
+            ? waypoints[waypoints.length - 1].order + 1
+            : 1;
         const newWaypoint: Waypoint = {
             id: uuid(), 
-            order: waypoints.length + 1,
-            coords: [event.latlng.lat, event.latlng.lng]
+            order,
+            coords: [event.latlng.lat, event.latlng.lng],
+            title: `Waypoint ${order}`
         };
         
         dispatch(setWaypoints([

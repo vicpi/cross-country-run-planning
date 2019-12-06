@@ -1,6 +1,7 @@
 export interface Waypoint {
     id: string,
     order: number,
+    title: string,
     coords: [number, number]
 };
 

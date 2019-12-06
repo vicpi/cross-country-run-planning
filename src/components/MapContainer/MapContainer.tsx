@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, TileLayer, Polyline } from 'react-leaflet'
 import './MapContainer.scss';
 import L, { LeafletMouseEvent } from 'leaflet';
 
@@ -18,6 +18,8 @@ const MapContainer: React.FC = () => {
         html: '<span>1</span>'
     });
 
+    const polylinePositions = waypoints.map(point => point.coords)
+
     return (
         <div className="map-container">
             <Map center={[47.872332, 15.638276]} zoom={12} onClick={onClick}>
@@ -28,6 +30,7 @@ const MapContainer: React.FC = () => {
                 {waypoints.map(point => 
                     <Marker position={point.coords} icon={markerIcon}></Marker>
                 )}
+                <Polyline positions={polylinePositions} />
             </Map>
         </div>
     );

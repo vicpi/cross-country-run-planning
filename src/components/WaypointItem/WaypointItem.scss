@@ -1,0 +1,18 @@
+@import "../../variables";
+
+.waypoint-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    
+    svg {
+        fill: $gray;
+        width: 15px;
+        height: 15px;
+    }
+
+    .waypoint-title {
+        flex: 1;
+        margin-left: 5px;
+    }
+}

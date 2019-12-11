@@ -21,26 +21,23 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
     const onDelete = () => {
         dispatch(removeWaypoint(waypoint));
     }
-    const onDragStart = (e: DragEvent) => {
+    const onDragStart = (e: React.DragEvent<HTMLSpanElement>) => {
         const node: any = e.target
         e.dataTransfer.effectAllowed = "move";
         dispatch(setDraggedItemId(waypoint.id));
         e.dataTransfer.setDragImage(node.parentNode, 20, 20);
     }
     const onDragEnd = (e: DragEvent) => {
-        console.log('onDragEnd')
         dispatch(stopDragProcess());
     }
     const onDragOver = (e: DragEvent) => {
     }
-    const onDragEnter = (e: DragEvent) => {
+    const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         const draggedOverItemId = waypoint.id;
         dispatch(setOrderIndex(draggedOverItemId))
-        console.log('onDragEnter', e.target)
         setActiveDropZone(true);
     }
-    const onDragLeave = (e: DragEvent) => {
-        console.log('onDragLeave', e.target)
+    const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
         setActiveDropZone(false);
     }
 

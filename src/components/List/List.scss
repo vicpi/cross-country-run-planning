@@ -1,6 +1,18 @@
+@import "../../variables";
+
 .list {
+    display: flex;
+    flex-direction: column;
     overflow: scroll;
     flex: 1;
     padding-top: 50px;
     padding-bottom: 30px;
+
+    .free-drop-zone {
+        flex: 1;
+
+        &.active {
+            border-top: 2px solid $white;
+        }
+    }
 }

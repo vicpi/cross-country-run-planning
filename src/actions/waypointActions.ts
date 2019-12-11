@@ -43,7 +43,7 @@ interface ReorderWaypointsAction {
 interface SetOrderIndexAction {
     type: string,
     payload: {
-        waypointId: WaypointId
+        waypointId: WaypointId | null
     }
 };
 
@@ -93,7 +93,7 @@ export const reorderWaypoints = (draggedOverWaypointId: string): ReorderWaypoint
     }
 }
 
-export const setOrderIndex = (waypointId: WaypointId): SetOrderIndexAction => {
+export const setOrderIndex = (waypointId: WaypointId | null): SetOrderIndexAction => {
     return {
         type: SET_ORDER_INDEX,
         payload: {

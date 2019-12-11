@@ -5,14 +5,14 @@ import { Action, Waypoint, WaypointId } from '../types';
 
 export interface AppState {
     waypoints: Array<Waypoint>,
-    draggedItemId: WaypointId,
-    orderIndex: WaypointId
+    draggedItemId: WaypointId | null,
+    orderIndex: number
 };
 
 const initialState: AppState = {
     waypoints: [],
     draggedItemId: null,
-    orderIndex: null
+    orderIndex: -1
 };
 
 function rootReducer(state = initialState, action: Action) {
@@ -41,29 +41,39 @@ function rootReducer(state = initialState, action: Action) {
                 draggedItemId: null
             }
         case SET_ORDER_INDEX:
+            let index = state.waypoints.findIndex(
+                waypoint => waypoint.id === action.payload.waypointId
+            );
+            if (index === -1) {
+                index = state.waypoints.length;
+            }
             return {
                 ...state,
-                orderIndex: action.payload.waypointId
+                orderIndex: index
             }
         case STOP_DRAG_PROCESS:
             const draggedWaypoint = state.waypoints.find(
                 waypoint => waypoint.id === state.draggedItemId
             );
+            const oldIndex = state.waypoints.findIndex(
+                waypoint => waypoint.id === state.draggedItemId
+            );
+            const newIndex = state.orderIndex > oldIndex
+                ? state.orderIndex - 1
+                : state.orderIndex;
             const filteredWaypoints = state.waypoints.filter(
                 waypoint => waypoint.id !== state.draggedItemId
             );
-            const index = filteredWaypoints.findIndex(
-                waypoint => waypoint.id === state.orderIndex
-            );
             const waypointsInNewOrder = [
-                ...filteredWaypoints.slice(0, index),
+                ...filteredWaypoints.slice(0, newIndex),
                 draggedWaypoint,
-                ...filteredWaypoints.slice(index)
+                ...filteredWaypoints.slice(newIndex)
             ];
             return {
                 ...state,
                 waypoints: waypointsInNewOrder,
-                draggedItemId: null
+                draggedItemId: null,
+                orderIndex: -1
             }
         default:
             return state

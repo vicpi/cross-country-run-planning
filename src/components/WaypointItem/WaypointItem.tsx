@@ -57,7 +57,7 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
                 <MenuIcon />
             </span>
             <span className="waypoint-title">{waypoint.title}</span>
-            <TrashIcon onClick={onDelete} />
+            <span className="remove"><TrashIcon onClick={onDelete} /></span>
             <div
                 className={classnames('drop-zone', { 
                     'active': activeDropZone,

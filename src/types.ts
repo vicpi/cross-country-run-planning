@@ -9,3 +9,5 @@ export interface Action {
     type: string,
     payload: any
 }
+
+export type WaypointId = string | null;

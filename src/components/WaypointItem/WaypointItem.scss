@@ -3,8 +3,13 @@
 .waypoint-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    position: relative;
+    padding: 10px 0;
     
+    .drag-icon {
+        cursor: pointer;
+    }
+
     svg {
         fill: $gray;
         width: 15px;
@@ -14,5 +19,22 @@
     .waypoint-title {
         flex: 1;
         margin-left: 5px;
+    }
+
+    .drop-zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: none;
+
+        &.visible {
+            display: block;
+        }
+        
+        &.active {
+            border-top: 2px solid $white;
+        }
     }
 }

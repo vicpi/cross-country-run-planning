@@ -1,10 +1,11 @@
-/// <reference path="../../../definitely-typed/gps-to-gpx.d.ts" />
+/// <reference path='../../../definitely-typed/gps-to-gpx.d.ts' />
 import React from 'react';
 import Button from '../Button/Button';
 import createGpx from 'gps-to-gpx';
 import './Footer.scss';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../reducers/rootReducer';
+import { generateFileDownload } from '../../helpers/generate-file-download';
 
 const Footer: React.FC = () => {
     const waypoints = useSelector((state: AppState) => state.waypoints);
@@ -16,11 +17,12 @@ const Footer: React.FC = () => {
             activityName: 'RUN',
             creator: 'Viktor Pyskunov'
         });
-        console.log(gpxContent);
+
+        generateFileDownload(gpxContent);
     }
     
     return (
-        <div className="footer">
+        <div className='footer'>
             <Button onClick={downloadGPXFile}>Download your Route</Button>
         </div>
     );

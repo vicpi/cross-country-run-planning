@@ -7,7 +7,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.scss';
 import App from './App';
 
-const store = createStore(rootReducer, composeWithDevTools());
+let store;
+if (process.env.NODE_ENV === 'development') {
+    store = createStore(rootReducer, composeWithDevTools());
+} else {
+    store = createStore(rootReducer);
+}
 
 ReactDOM.render(
     <Provider store={store}>

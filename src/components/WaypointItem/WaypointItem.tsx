@@ -22,15 +22,18 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
         dispatch(removeWaypoint(waypoint));
     }
     const onDragStart = (e: React.DragEvent<HTMLSpanElement>) => {
-        const node: any = e.target
-        e.dataTransfer.effectAllowed = "move";
         dispatch(setDraggedItemId(waypoint.id));
+        e.dataTransfer.setData("text", waypoint.id);
+        e.dataTransfer.effectAllowed = "move";
+        const node: any = e.target
         e.dataTransfer.setDragImage(node.parentNode, 20, 20);
     }
     const onDragEnd = (e: DragEvent) => {
         dispatch(stopDragProcess());
     }
     const onDragOver = (e: DragEvent) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
     }
     const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         const draggedOverItemId = waypoint.id;
@@ -38,6 +41,10 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
         setActiveDropZone(true);
     }
     const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+        setActiveDropZone(false);
+    }
+    const onDrop = (e: DragEvent) => {
+        e.preventDefault();
         setActiveDropZone(false);
     }
 
@@ -51,7 +58,6 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
                 className="drag-icon"
                 draggable
                 onDragStart={onDragStart}
-                onDragOver={onDragOver}
                 onDragEnd={onDragEnd}
             >
                 <MenuIcon />
@@ -65,6 +71,8 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
                 })}
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
             ></div>
         </div>
     )

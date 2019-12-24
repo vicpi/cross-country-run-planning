@@ -1,13 +1,13 @@
 import React, { useState, DragEvent } from 'react';
 import { ReactComponent as MenuIcon } from '../../images/menu.svg';
 import { ReactComponent as TrashIcon } from '../../images/trash.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
-import { removeWaypoint, setDraggedItemId, reorderWaypoints, setOrderIndex, stopDragProcess } from '../../actions/waypointActions';
+import { removeWaypoint, setDraggedItemId, setOrderIndex, stopDragProcess } from '../../actions/waypointActions';
 import { Waypoint } from '../../types';
 import useIsDragging from '../../hooks/useIsDragging';
-import './WaypointItem.scss';
 import useDraggedItem from '../../hooks/useDraggedItem';
+import { SWaypointItem, SDragIcon, SDropZone, SRemove, SWaypointTitle } from './WaypointItem.styles';
 
 interface WaypointItemProps {
     waypoint: Waypoint
@@ -49,23 +49,22 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
     }
 
     return (
-        <div 
-            className={classnames('waypoint-item', { 
+        <SWaypointItem 
+            className={classnames({ 
                 'active': draggedItem === waypoint.id
             })}
         >
-            <span
-                className="drag-icon"
+            <SDragIcon
                 draggable
                 onDragStart={onDragStart}
                 onDragEnd={onDragEnd}
             >
                 <MenuIcon />
-            </span>
-            <span className="waypoint-title">{waypoint.title}</span>
-            <span className="remove"><TrashIcon onClick={onDelete} /></span>
-            <div
-                className={classnames('drop-zone', { 
+            </SDragIcon>
+            <SWaypointTitle>{waypoint.title}</SWaypointTitle>
+            <SRemove><TrashIcon onClick={onDelete} /></SRemove>
+            <SDropZone
+                className={classnames({ 
                     'active': activeDropZone,
                     'visible': isDragging && (draggedItem !== waypoint.id)
                 })}
@@ -73,8 +72,8 @@ const WaypointItem: React.FC<WaypointItemProps> = ({ waypoint }) => {
                 onDragLeave={onDragLeave}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
-            ></div>
-        </div>
+            ></SDropZone>
+        </SWaypointItem>
     )
 }
 

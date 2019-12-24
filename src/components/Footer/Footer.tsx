@@ -2,7 +2,6 @@
 import React from 'react';
 import Button from '../Button/Button';
 import createGpx from 'gps-to-gpx';
-import './Footer.scss';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../reducers/rootReducer';
 import { generateFileDownload } from '../../helpers/generate-file-download';

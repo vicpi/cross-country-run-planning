@@ -1,11 +1,11 @@
 import React from 'react';
-import './Header.scss';
+import { StyledHeaderDiv } from './Header.styles';
 
 const Header: React.FC = () => {
     return (
-        <div className="header">
+        <StyledHeaderDiv>
             <p>Route Builder</p>
-        </div>
+        </StyledHeaderDiv>
     );
 }
 

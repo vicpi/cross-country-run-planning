@@ -30,7 +30,7 @@ In order to run the application in production mode, run ```npm run production```
 - React
 - Redux
 - Webpack
-- SASS
+- Styled components
 - Jest
 - Enzyme
 

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import './Button.scss';
+import { StyledButtonDiv } from './ButtonStyles'
 
 interface ButtonProps {
     children: React.ElementType | string,
@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
     return (
-        <div className="button" onClick={onClick}>{children}</div>
+        <StyledButtonDiv onClick={onClick}>{children}</StyledButtonDiv>
     )
 }
 

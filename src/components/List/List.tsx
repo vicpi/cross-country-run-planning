@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import WaypointItem from '../WaypointItem/WaypointItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../../reducers/rootReducer';
-import './List.scss';
+import { SListDiv, SFreeDropZoneDiv } from './List.styles';
 import { setOrderIndex } from '../../actions/waypointActions';
 import useIsDragging from '../../hooks/useIsDragging';
 
@@ -30,17 +30,17 @@ const List: React.FC = () => {
         setActiveDropZone(false);
     }
     return (
-        <div className={classnames('list')}>
+        <SListDiv>
             {waypoints.map(waypoint => 
                 <WaypointItem key={waypoint.id} waypoint={waypoint} />
             )}
-            <div className={classnames('free-drop-zone', { 'active': activeDropZone })}
+            <SFreeDropZoneDiv className={classnames({ 'active': activeDropZone })}
                  onDragEnter={onDragEnter}
                  onDragLeave={onDragLeave}
                  onDragOver={onDragOver}
                  onDrop={onDrop}
-            ></div>
-        </div>
+            ></SFreeDropZoneDiv>
+        </SListDiv>
     );
 }
 

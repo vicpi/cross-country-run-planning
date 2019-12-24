@@ -7,7 +7,7 @@ import { setWaypoints } from '../../actions/waypointActions';
 import { AppState } from '../../reducers/rootReducer';
 import uuid from 'uuid/v1';
 import { Waypoint } from '../../types';
-import './MapContainer.scss';
+import { SMapContainer, SMapContainerGlobalStyle } from './MapContainer.styles';
 
 const MapContainer: React.FC = () => {
     const waypoints = useSelector((state: AppState) => state.waypoints);
@@ -35,8 +35,9 @@ const MapContainer: React.FC = () => {
 
     const polylinePositions = waypoints.map(waypoint => waypoint.coords)
 
-    return (
-        <div className="map-container">
+    return (<>
+        <SMapContainerGlobalStyle />
+        <SMapContainer>
             <Map center={[47.872332, 15.638276]} zoom={12} onClick={onClick}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -47,8 +48,8 @@ const MapContainer: React.FC = () => {
                 )}
                 <Polyline positions={polylinePositions} />
             </Map>
-        </div>
-    );
+        </SMapContainer>
+    </>);
 }
     
 export default MapContainer;
